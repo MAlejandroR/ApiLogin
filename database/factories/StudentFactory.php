@@ -20,8 +20,8 @@ class StudentFactory extends Factory
         return [
             "name"=>fake()->name("es_ES"),
             "email"=>fake()->safeEmail("es_ES"),
-            "brith_date" => fake()->date("Y-m-d", '2000-01-01', '2010-12-31'), // Genera una fecha de nacimiento aleatoria entre 2000 y 2010
-            "teachers_id"=>fake()->randomElement(Teacher::all())
+            "birth_date" => fake()->date("Y-m-d", '2000-01-01', '2010-12-31'), // Genera una fecha de nacimiento aleatoria entre 2000 y 2010
+            "teacher_id"=>fake()->randomElement(Teacher::all())
         ];
     }
 }

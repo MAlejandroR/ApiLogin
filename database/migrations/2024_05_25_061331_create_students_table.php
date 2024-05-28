@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->string("email");
-            $table->string("brith_date");
-            $table->foreignId("teachers_id")->constrained();
+            $table->string("birth_date");
+            $table->foreignId("teacher_id")->constrained();
             $table->timestamps();
         });
     }

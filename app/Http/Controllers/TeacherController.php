@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use App\Http\Resources\TeacherCollection;
 
 class TeacherController extends Controller
 {
@@ -12,6 +14,8 @@ class TeacherController extends Controller
      */
     public function index()
     {
+        $teachers = Teacher::all();
+        return new TeacherCollection($teachers);
         //
     }
 
@@ -20,23 +24,52 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
+        $teacher = new Teacher($request->input("data.attributes"));
+        $teacher->save();
+        return new TeacherResource($teacher);
         //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Teacher $teacher)
+    public function show(int $id)
     {
-        //
+        $resource = Student::find($id);
+        if (!$resource) {
+            return response()->json([
+                'errors' => [
+                    [
+                        'status' => '404',
+                        'title' => 'Resource Not Found',
+                        'detail' => 'The requested resource does not exist or could not be found.'
+                    ]
+                ]
+            ], 404);
+        }
+        return new TeacherResource($resource);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, int $id)
     {
-        //
+        $teacher = Teacher::find($id);
+        if (!$teacher) {
+            return response()->json([
+                'errors' => [
+                    [
+                        'status' => '404',
+                        'title' => 'Resource Not Found',
+                        'detail' => 'The requested resource does not exist or could not be found.'
+                    ]
+                ]
+            ], 404);
+        }
+        $teacher->update($request->input("data.attributes"));
+
+        return new TeacherResource($teacher);
     }
 
     /**
@@ -44,6 +77,7 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        $teacher->delete();
+        return response()->json(null, 204);
     }
 }
