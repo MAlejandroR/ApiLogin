@@ -12,7 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        //las solicitudes entrantes de su SPA puedan autenticarse
+        // utilizando las cookies de sesión de Laravel.
+        //También las solicitudes de terceros o aplicaciones móviles
+        // se autentiquen mediante tokens API
+        $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

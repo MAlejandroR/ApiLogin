@@ -25,16 +25,16 @@ class TeacherResource extends JsonResource
             ],
             "relationships" => [
                 "students" => [
-                    "data" => $this->students->map(function($student) {
+                    "data" =>  $this->students->map(function($student) {
                         return [
                             "type" => "students",
                             "id" => (string)$student->id
                         ];
                     })->all(),
-                    "links" => [
+                    "links" => $this->students? [
                         "self" => url("api/teachers/{$this->id}/relationships/students"),
                         "related" => url("api/teachers/{$this->id}/students")
-                    ]
+                    ]:[]
                 ]
             ],
             "links" => [

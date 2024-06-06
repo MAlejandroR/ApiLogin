@@ -7,6 +7,7 @@ use App\Http\Resources\StudentCollection;
 use App\Models\Alumno;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Http\Resources\StudentResource;
 
 class StudentController extends Controller
 {

@@ -6,6 +6,8 @@ use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use App\Http\Resources\TeacherCollection;
+use App\Http\Resources\TeacherResource;
+
 
 class TeacherController extends Controller
 {
@@ -35,7 +37,9 @@ class TeacherController extends Controller
      */
     public function show(int $id)
     {
-        $resource = Student::find($id);
+        $resource = Teacher::find($id);
+        info ($resource);
+
         if (!$resource) {
             return response()->json([
                 'errors' => [
